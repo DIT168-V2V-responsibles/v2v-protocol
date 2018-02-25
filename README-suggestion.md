@@ -2,7 +2,7 @@
 
 ## Requests/Reponses
 
-Fields of requests and their types are denoted: <Type> <field name>, capitalizing the type.
+Fields of requests and their types are denoted: Type field name.
 
 ### Announce Presence
 This message is intended as a way of letting cars in the network know about each other. Each car should sent an Announce Presence message as soon as they connect to the network. A car, upon receiving an Announce Presence message, should in turn itself broadcast an Announce Presence message to let the newly connected car know about it too.
