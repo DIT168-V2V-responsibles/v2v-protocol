@@ -1,0 +1,4 @@
+message TextMessage [id = 1001] {
+    string sender [id = 1];
+    string text   [id = 2];
+}
