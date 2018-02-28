@@ -1,7 +1,0 @@
-message LeaderStatus [id = 1001] {
-  // ...
-}
-
-messages FollowerStatus [id = 1002] {
-  // ...
-}

@@ -1,0 +1,30 @@
+message AnnouncePresence [id = 1000] {
+  uint8 channel [id = 1];
+}
+
+message FollowRequest [id = 1001] {
+  uint8 carId [id = 1];
+}
+
+message FollowResponse [id = 1002] {
+  uint8 meantForCar [id = 1];
+  uint8 carToFollow [id = 2];
+}
+
+message StopFollow [id = 1003] {
+  uint8 carInFront [id = 1];
+}
+
+message EmergencyBrake [id = 9999] {
+  uint8 speed [id = 1];
+}
+
+message LeaderStatus [id = 2001] {
+  uint8 speed [id = 1];
+  uint8 steeringAngle [id = 2];
+}
+
+message FollowerStatus [id = 3001] {
+  uint8 speed [id = 1];
+  uint8 distanceFront [id = 2];
+}
