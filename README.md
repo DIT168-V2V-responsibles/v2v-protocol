@@ -1,6 +1,6 @@
 # DIT 168 V2V protocol proposal
 
-This repo contains a V2V communication protocol between autonomous RCs found [here](https://github.com/chalmers-revere/opendlv.scaledcars).
+This repo contains a V2V communication protocol between autonomous RCs with a focus on platooning. The RCs' specs can be found [here](https://github.com/chalmers-revere/opendlv.scaledcars).
 
 ### Table of contents
 
