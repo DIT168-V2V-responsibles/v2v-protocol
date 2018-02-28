@@ -9,6 +9,7 @@ This repo contains a V2V communication protocol between autonomous RCs with a fo
 3. ##### [License](https://github.com/DIT168-V2V-responsibles/v2v-protocol#3-license)
 
 ### 1. Installation
+Please refer to the installation guide of [Libcluon](https://https://github.com/chrberger/libcluon)
 
 ### 2. Get started
 
