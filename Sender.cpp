@@ -19,9 +19,9 @@ public:
                                [](cluon::data::Envelope /*&&envelope*/) noexcept {});
     }
 
-    void announcePresence() {
+    void announcePresence(uint8_t channel) {
         AnnouncePresence ap;
-        ap.channel(BROADCAST_CHANNEL + 1);
+        ap.channel(channel);
         broadcastSession->send(ap);
     }
 
@@ -44,6 +44,7 @@ public:
         if (platoonSession == nullptr) return;
         StopFollow sf;
         sf.carInFront(carInFront);
+        platoonSession->send(sf);
         platoonSession = nullptr;
     }
 
@@ -88,7 +89,7 @@ int main(int /*argc*/, char ** /*argv*/) {
         std::cin >> choice;
 
         switch (choice) {
-            case 1: sender->announcePresence(); break;
+            case 1: sender->announcePresence(DEMO_PLATOON_CHANNEL); break;
             case 2: sender->followRequest(DEMO_PLATOON_CHANNEL, DEMO_CAR_ID); break;
             case 3: sender->followResponse(DEMO_CAR_ID); break;
             case 4: sender->stopFollow(DEMO_CAR_ID); break;
