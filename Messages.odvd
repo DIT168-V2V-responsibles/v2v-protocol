@@ -26,5 +26,6 @@ message LeaderStatus [id = 2001] {
 
 message FollowerStatus [id = 3001] {
   uint8 speed [id = 1];
-  uint8 distanceFront [id = 2];
+  uint8 steeringAngle [id = 2];
+  uint8 distanceFront [id = 3];
 }

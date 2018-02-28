@@ -63,10 +63,11 @@ public:
         platoonSession->send(ls);
     }
 
-    void followerStatus(uint8_t speed, uint8_t distanceFront) {
+    void followerStatus(uint8_t speed, uint8_t steeringAngle, uint8_t distanceFront) {
         if (platoonSession == nullptr) return;
         FollowerStatus fs;
         fs.speed(speed);
+        fs.steeringAngle(steeringAngle);
         fs.distanceFront(distanceFront);
         platoonSession->send(fs);
     }
@@ -95,7 +96,7 @@ int main(int /*argc*/, char ** /*argv*/) {
             case 4: sender->stopFollow(DEMO_CAR_ID); break;
             case 5: sender->emergencyBrake(0); break;
             case 6: sender->leaderStatus(50, 0); break;
-            case 7: sender->followerStatus(50, 10); break;
+            case 7: sender->followerStatus(50, 0, 10); break;
             default: exit(0);
         }
     }
