@@ -13,3 +13,5 @@ This repo contains a V2V communication protocol between autonomous RCs with a fo
 ### 2. Get started
 
 ### 3. License
+
+This repo uses the license [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html). Please refer to the official documentation before you contribute.
