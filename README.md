@@ -6,13 +6,10 @@ This repo contains a V2V communication protocol between autonomous RCs with a fo
 
 1. ##### Installation
 2. ##### Get started
-3. ##### Contributors
-4. ##### License
+3. ##### License
 
 ### 1. Installation
 
 ### 2. Get started
 
-### 3. Contributors
-
-### 4. License
+### 3. License
