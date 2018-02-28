@@ -12,6 +12,10 @@ This repo contains a V2V communication protocol between autonomous RCs with a fo
 
 ### 2. Get started
 
+Clone the repo using:
+
+`git clone https://github.com/DIT168-V2V-responsibles/v2v-protocol.git`
+
 ### 3. License
 
 This repo uses the license [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html). Please refer to the official documentation before you contribute.
