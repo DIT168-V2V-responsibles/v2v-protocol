@@ -28,34 +28,29 @@ This section describes the the the protocol requests. Fields of requests and the
 #### 4.1 Common Requests
 
 ##### Announce Presence
-This message is intended as a way of letting cars in the network know about each other. Each car should sent an Announce Presence message as soon as they connect to the network. A car, upon receiving an Announce Presence message, should in turn itself broadcast an Announce Presence message to let the newly connected car know about it too. This message does not expect a response.
+This message is intended as a way of letting cars in the network know about each other. Each car should sent an Announce Presence when joining a platoon. Different channels are used to distinguish between different platoons. 
 
 ***Fields***
-* Identifier id - A unique identifier of the car sending the follow announcement.
+* unit_8_t channel - A unique identifier of the car sending the follow announcement.
 
-##### Follow Request
-This message is sent explicitly to a car when attempting to initiate following. The car intended to be followed is identified as *target*. This message requires a response, which can come as two different messages; Follow Reject or Follow Accepted. 
-
-***Fields***
-* Identifier target - A unique identifier of the target car of the request.
-
-##### Reject Follow
-This message is sent as a response to a Follow Request if the car identified in the *target* field of the Follow Request is already being followed. The response in turn sends the unique identifier of the car already following *target*. 
+##### Follow Request  
+This message is sent to a channel when a car is attempting to initiate following. This message requires a response i.e. Follow Response. 
 
 ***Fields***
-* Identifier nextInLine - A unique identifier of the car already following the target of the Follow Request.
+* unit_8_t carId - A unique identifier of the car that initiated the following.
 
-##### Accept Follow
-This message is sent in response to a Follow Request when the request was successfully accepted. This is a response to the Follow Request message. The message returns the identifier of the car that being the following.
-
-***Fields***
-* Identifier acceptedCar - A unique identifier of the car that accepted the request.
-
-##### Stop Following Request
-This message is sent by a car to indicate that following must come to an end. both the leading and the following vehicles are able to send this request. This message does not expect a response.
+##### Follow Response
+This message is sent in response to a Follow Request. The message returns the identifier of the car at the last position of the platoon and the car ID that originally initiated the following.
 
 ***Fields***
-* Identifier target - A unique identifier of the car that will no longer be followed.
+* unit_8_t meantForCar - A unique identifier of the car that initiated the following.
+* unit_8_t carToFollow - A unique identifier of the final car within the platoon line.
+
+##### Emergency Brake
+This message is sent in order to stop the cars from moving. The request is used to avoid any collision and possible damage between the cars. 
+
+***Fields***
+* Identifier speed - A speed value of 0, used to stop the cars.
 
 #### 4.2 Leader Specific Requests
 
@@ -63,8 +58,8 @@ This message is sent by a car to indicate that following must come to an end. bo
 This message includes information about a leading vehicle and contains information relevant for a following car to be able to follow it. This message does not expect a response.
 
 ***Fields***
-* int speed - Current speed of the leading vehicle
-* int steering - Current steering angle of the leading vehicle
+* unit_8_t speed - Current speed of the leading vehicle
+* unit_8_t steering - Current steering angle of the leading vehicle
 
 #### 4.3 Follower Specific Requests
 
@@ -72,6 +67,12 @@ This message includes information about a leading vehicle and contains informati
 This message includes information about a following vehicle and contains information relevant for a leading car. This message does not expect a response.
 
 ***Fields***
-* int speed - Current speed of the leading vehicle
-* int steering - Current steering angle of the leading vehicle
-* int distance - Current distance to the car being followed
+* unit_8_t speed - Current speed of the leading vehicle
+* unit_8_t steering - Current steering angle of the leading vehicle
+* unit_8_t distance - Current distance to the car being followed
+
+##### Stop Following Request
+This message is sent by a car to indicate that following must come to an end. both the leading and the following vehicles are able to send this request. This message does not expect a response.
+
+***Fields***
+* unit_8_t carInFront - A unique identifier of the car that will no longer be followed.
