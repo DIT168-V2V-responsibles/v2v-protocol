@@ -10,7 +10,7 @@ This repo contains a V2V communication protocol between autonomous RCs with a fo
 4. ##### [Requests](https://github.com/DIT168-V2V-responsibles/v2v-protocol#4-protocol-requests)
 
 ### 1. Installation
-To install libcluon please refer to the installation guide [Libcluon](https://https://github.com/chrberger/libcluon).
+To install libcluon please refer to the installation guide [Libcluon](https://github.com/chrberger/libcluon).
 
 ### 2. Get started
 
@@ -37,7 +37,7 @@ make
 
 ### 3. License
 The protocol is licenced under GNU Lesser General Public License version 3.0. This is due to the incorporation of "libcluon" library as part of the project. Libcluon offers their software under LGPLv 3.0 licence and due to the copyleft nature, anyone who distribute its code or derivative works, are required to make the source available under the same terms. 
-Libcluon library can be found at [https://github.com/chrberger/libcluon]
+Libcluon library can be found [here](https://github.com/chrberger/libcluon).
 
 ### 4. Protocol Requests 
 This section describes the protocol requests. Fields of requests and their types are denoted: Type field name.
