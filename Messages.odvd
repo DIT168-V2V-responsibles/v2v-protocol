@@ -1,17 +1,17 @@
-message AnnouncePresence [id = 1000] {
+message AnnouncePresence [id = 1010] {
   uint8 channel [id = 1];
 }
 
-message FollowRequest [id = 1001] {
+message FollowRequest [id = 1011] {
   uint8 carId [id = 1];
 }
 
-message FollowResponse [id = 1002] {
+message FollowResponse [id = 1012] {
   uint8 meantForCar [id = 1];
   uint8 carToFollow [id = 2];
 }
 
-message StopFollow [id = 1003] {
+message StopFollow [id = 1013] {
   uint8 carInFront [id = 1];
 }
 
