@@ -45,5 +45,9 @@ public:
 int main(int /*argc*/, char ** /*argv*/) {
     V2VReceiver *receiver = new V2VReceiver();
     receiver->joinPlatoon(DEMO_PLATOON_CHANNEL);
-    while (1) { /* wait.*/ }
+    
+    using namespace std::chrono_literals; 
+    while (1) {
+        std::this_thread::sleep_for(250ms);
+    }
 }
