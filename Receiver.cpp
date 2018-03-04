@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <memory>
 
 #include "cluon/OD4Session.hpp"
 #include "cluon/Envelope.hpp"
@@ -11,11 +12,12 @@
 
 class V2VReceiver {
 private:
-    cluon::OD4Session *platoonSession;
+    std::shared_ptr<cluon::OD4Session> broadcastSession;
+    std::shared_ptr<cluon::OD4Session> platoonSession;
 
 public:
     V2VReceiver() {
-        new cluon::OD4Session(BROADCAST_CHANNEL,
+        broadcastSession = std::make_shared<cluon::OD4Session>(BROADCAST_CHANNEL,
           [](cluon::data::Envelope &&envelope) noexcept {
               switch (envelope.dataType()) {
                   case ANNOUNCE_PRESENCE:    /*...*/
@@ -26,7 +28,7 @@ public:
 
     void joinPlatoon(uint8_t channel) {
         if (platoonSession != nullptr) platoonSession = nullptr;
-        platoonSession = new cluon::OD4Session(channel,
+        platoonSession = std::make_shared<cluon::OD4Session>(channel,
            [](cluon::data::Envelope &&envelope) noexcept {
                switch (envelope.dataType()) {
                    case ANNOUNCE_PRESENCE:  /*...*/
@@ -43,7 +45,7 @@ public:
 };
 
 int main(int /*argc*/, char ** /*argv*/) {
-    V2VReceiver *receiver = new V2VReceiver();
+    std::shared_ptr<V2VReceiver> receiver = std::make_shared<V2VReceiver>();
     receiver->joinPlatoon(DEMO_PLATOON_CHANNEL);
     
     using namespace std::chrono_literals; 

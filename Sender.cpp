@@ -2,6 +2,7 @@
 #include <chrono>
 #include <iostream>
 #include <unistd.h>
+#include <memory>
 
 #include "cluon/OD4Session.hpp"
 #include "cluon/Envelope.hpp"
@@ -10,12 +11,12 @@
 
 class V2VSender {
 private:
-    cluon::OD4Session *broadcastSession;
-    cluon::OD4Session *platoonSession;
+    std::shared_ptr<cluon::OD4Session> broadcastSession;
+    std::shared_ptr<cluon::OD4Session> platoonSession;
 
 public:
     V2VSender() {
-        broadcastSession = new cluon::OD4Session(BROADCAST_CHANNEL,
+        broadcastSession = std::make_shared<cluon::OD4Session>(BROADCAST_CHANNEL,
                                [](cluon::data::Envelope /*&&envelope*/) noexcept {});
     }
 
@@ -26,7 +27,7 @@ public:
     }
 
     void followRequest(uint8_t channel, uint8_t carId) {
-        platoonSession = new cluon::OD4Session(channel,
+        platoonSession = std::make_shared<cluon::OD4Session>(channel,
                              [](cluon::data::Envelope /*&&envelope*/) noexcept {});
         FollowRequest fr;
         fr.carId(carId);
@@ -74,7 +75,8 @@ public:
 };
 
 int main(int /*argc*/, char ** /*argv*/) {
-    V2VSender *sender = new V2VSender();
+    std::shared_ptr<V2VSender> sender = std::make_shared<V2VSender>();
+    
     while (1) {
         int choice;
         std::cout << "Which message would you like to send?" << std::endl;
