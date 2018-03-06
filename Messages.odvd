@@ -1,30 +1,30 @@
 message AnnouncePresence [id = 1001] {
-  uint8 vehicleIp [id = 1];
-  uint8 activePort [id = 2];
+  string vehicleIp [id = 1];
+  uint16 activePort [id = 2];
 }
 
 message FollowRequest [id = 1002] {
-  // uint8 vehicleIp [id = 1];
+  // string vehicleIp [id = 1];
 }
 
 message FollowResponse [id = 1003] {
-  uint8 timestamp [id = 1];
-  uint8 ntpServer [id = 2];
+  // uint32 timestamp [id = 1];
+  string ntpServerIp [id = 2];
 }
 
 message StopFollow [id = 1004] {
-  // uint8 vehicleIp [id = 1];
+  // string vehicleIp [id = 1];
 }
 
 message LeaderStatus [id = 2001] {
-  uint8 timestamp [id = 1];
+  uint32 timestamp [id = 1];
   uint8 speed [id = 2];
   uint8 steeringAngle [id = 3];
   uint8 distanceTraveled [id = 4];
 }
 
 message FollowerStatus [id = 3001] {
-  uint8 timestamp [id = 1];
+  uint32 timestamp [id = 1];
   uint8 speed [id = 2];
   uint8 steeringAngle [id = 3];
   uint8 distanceFront [id = 4];
