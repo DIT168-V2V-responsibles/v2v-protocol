@@ -1,7 +1,3 @@
-//
-// Created by julian on 3/6/18.
-//
-
 #ifndef V2V_PROTOCOL_DEMO_V2VSERVICE_H
 #define V2V_PROTOCOL_DEMO_V2VSERVICE_H
 
@@ -39,9 +35,15 @@ private:
     std::string followerIp;
 
     std::shared_ptr<cluon::OD4Session>  broadcast;
-    std::shared_ptr<cluon::UDPReceiver> inbound;
-    std::shared_ptr<cluon::UDPSender>   outboundLeader;
-    std::shared_ptr<cluon::UDPSender>   outboundFollower;
+    std::shared_ptr<cluon::UDPReceiver> incoming;
+    std::shared_ptr<cluon::UDPSender>   toLeader;
+    std::shared_ptr<cluon::UDPSender>   toFollower;
+
+    template <class T>
+    static std::string encode(T msg);
+    template <class T>
+    static T decode(std::string data);
+    static std::pair<int16_t, std::string> extract(std::string data);
 };
 
 #endif //V2V_PROTOCOL_DEMO_V2VSERVICE_H
