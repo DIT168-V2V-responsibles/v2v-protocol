@@ -45,51 +45,44 @@ This section describes the protocol requests. Fields of requests and their types
 #### 4.1 Common Requests
 
 ##### Announce Presence
-This message is intended as a way of letting cars in the network know about each other. Each car should sent an Announce Presence when joining a platoon. Different channels are used to distinguish between different platoons. No reply from the cars is required.
+This message is intended for the cars not leading other cars yet, to inform their presence on the network. The Announce Presence holds the IP of the car as a unique identification among all the cars and also the port that followers can connect to, if they choose to follow the car sending Announce Presence message. Moreover, the car also includes the id of the group in the message in order to inform the cars about the group number.
 
 ***Fields***
-* uint8_t channel - A unique identifier of the car sending the follow announcement.
+* string   vehicleIp  - IP of the car that sends the announce presence, used as a unique idetifier.
+* uint16_t activePort - A unique port that allows followers to connect to the car sending the announcement.
+* string   groupId    - The project group number of the group that has the car.
 
 ##### Follow Request  
-This message is sent to a channel when a car is attempting to initiate following. This message requires a response i.e. Follow Response. 
-
-***Fields***
-* uint8_t carId - A unique identifier of the car that initiated the following.
+This message is sent to the car that is about to be followed by another car that wants to initiate following. This message requires a response i.e. Follow Response. 
 
 ##### Follow Response
-This message is sent in response to a Follow Request. The message returns the identifier of the car at the last position of the platoon and the car ID that originally initiated the following.
+This message is sent in response to a Follow Request. The message returns a string containing the IP of the NTP server that the following car is synced to. In order the acquire a better time synchronization between the cars, each vehicle should run its own NTP server.
 
 ***Fields***
-* uint8_t meantForCar - A unique identifier of the car that initiated the following.
-* uint8_t carToFollow - A unique identifier of the final car within the platoon line.
-
-##### Emergency Brake
-This message is sent in order to stop the cars from moving. The request is used to avoid any collision and possible damage to the cars. No reply from the cars is required.
-
-***Fields***
-* uint8_t speed - A speed value of 0, used to stop the cars.
+* string ntpServerIp - A string containing the IP of the NTP server.
 
 #### 4.2 Leader Specific Requests
 
 ##### Status Update
-This message includes information about a leading vehicle and contains information relevant for a following car to be able to follow it. This message does not expect a response.
+This message includes information about a leading vehicle and contains information relevant for a following car to be able to follow it. The LeaderStatus is sent in regular intervals of 125ms. Also, a new status update will be sent if a sudden change in speed (>0.1 pedal position) or steering angle (>5°) occurs. This message does not expect a response.
 
 ***Fields***
-* uint8_t speed - Current speed of the leading vehicle
-* uint8_t steering - Current steering angle of the leading vehicle
+* unit32_t timestamp       - The time stamp (the time that the message has been sent) of the leading vehicle.
+* uint8_t  speed           - Current speed of the leading vehicle.
+* uint8_t steeringAngle    - Current steering angle of the leading vehicle.
+* unit8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
 
 #### 4.3 Follower Specific Requests
 
 ##### Status Update
-This message includes information about a following vehicle and contains information relevant for a leading car. This message does not expect a response.
+This message includes information about a following vehicle and contains information relevant for a leading car. The FollowerStatus is sent in regular intervals of 125ms. Also, a new status update will be sent if a sudden change in speed (>0.1 pedal position) or steering angle (>5°) occurs. This message does not expect a response.
 
 ***Fields***
-* uint8_t speed - Current speed of the leading vehicle
-* uint8_t steering - Current steering angle of the leading vehicle
-* uint8_t distance - Current distance to the car being followed
+* unit32_t timestamp       - A time stamp (the time that the message has been sent) for the following vehicle.
+* uint8_t speed            - Current speed of the following vehicle.
+* uint8_t steeringAngle    - Current steering angle of the following vehicle.
+* uint8_t distanceFront    - Current distance to the vehicle being followed (according to ultrasonic sensor).
+* unit8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
 
-##### Stop Following Request
+##### Stop Follow Request
 This message is sent by a car to indicate that following must come to an end. Both the leading and the following vehicles are able to send this request. This message does not expect a response.
-
-***Fields***
-* uint8_t carInFront - A unique identifier of the car that will no longer be followed.
