@@ -1,13 +1,17 @@
 #ifndef V2V_PROTOCOL_DEMO_V2VSERVICE_H
 #define V2V_PROTOCOL_DEMO_V2VSERVICE_H
 
+#include <iomanip>
+#include <sys/time.h>
 #include "cluon/OD4Session.hpp"
 #include "cluon/UDPSender.hpp"
 #include "cluon/UDPReceiver.hpp"
 #include "cluon/Envelope.hpp"
 #include "Messages.hpp"
 
-static const int DEMO_CAR_ID = 123;
+static const std::string DEMO_CAR_IP = "127.0.0.1";
+static const std::string DEMO_NTP_IP = "127.0.0.1";
+static const std::string DEMO_GROUP_ID = "42";
 
 static const int BROADCAST_CHANNEL = 200;
 static const int DEFAULT_PORT = 50001;
@@ -24,9 +28,9 @@ public:
     V2VService();
 
     void announcePresence();
-    void followRequest(std::string leader);
+    void followRequest(std::string vehicleIp);
     void followResponse();
-    void stopFollow();
+    void stopFollow(std::string vehicleIp);
     void leaderStatus(uint8_t speed, uint8_t steeringAngle, uint8_t distanceTraveled);
     void followerStatus(uint8_t speed, uint8_t steeringAngle, uint8_t distanceFront, uint8_t distanceTraveled);
 
@@ -39,11 +43,13 @@ private:
     std::shared_ptr<cluon::UDPSender>   toLeader;
     std::shared_ptr<cluon::UDPSender>   toFollower;
 
+    void *alive();
+    static uint32_t getTime();
+    static std::pair<int16_t, std::string> extract(std::string data);
     template <class T>
     static std::string encode(T msg);
     template <class T>
     static T decode(std::string data);
-    static std::pair<int16_t, std::string> extract(std::string data);
 };
 
 #endif //V2V_PROTOCOL_DEMO_V2VSERVICE_H
