@@ -2,6 +2,7 @@
 #define V2V_PROTOCOL_DEMO_V2VSERVICE_H
 
 #include <iomanip>
+#include <unistd.h>
 #include <sys/time.h>
 #include "cluon/OD4Session.hpp"
 #include "cluon/UDPSender.hpp"
@@ -43,7 +44,6 @@ private:
     std::shared_ptr<cluon::UDPSender>   toLeader;
     std::shared_ptr<cluon::UDPSender>   toFollower;
 
-    void *alive();
     static uint32_t getTime();
     static std::pair<int16_t, std::string> extract(std::string data);
     template <class T>

@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include "V2VService.hpp"
 
 int main() {
