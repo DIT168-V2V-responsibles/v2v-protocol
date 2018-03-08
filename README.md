@@ -61,6 +61,9 @@ This message is sent in response to a Follow Request. The message returns a stri
 ***Fields***
 * string ntpServerIp - A string containing the IP of the NTP server.
 
+##### Stop Follow Request
+This message is sent by a car to indicate that following must come to an end. Both the leading and the following vehicles are able to send this request. This message does not expect a response.
+
 #### 4.2 Leader Specific Requests
 
 ##### Status Update
@@ -83,6 +86,3 @@ This message includes information about a following vehicle and contains informa
 * uint8_t steeringAngle    - Current steering angle of the following vehicle.
 * uint8_t distanceFront    - Current distance to the vehicle being followed (according to ultrasonic sensor).
 * unit8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
-
-##### Stop Follow Request
-This message is sent by a car to indicate that following must come to an end. Both the leading and the following vehicles are able to send this request. This message does not expect a response.
