@@ -1,5 +1,7 @@
 # Binaries
+.idea/
 build/
+cmake-build-debug/
 
 # Prerequisites
 *.d
@@ -33,3 +35,7 @@ build/
 *.exe
 *.out
 *.app
+
+# Additional definitions
+Messages.hpp
+Messages.cpp
