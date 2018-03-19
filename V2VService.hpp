@@ -9,6 +9,7 @@
 #include "cluon/UDPReceiver.hpp"
 #include "cluon/Envelope.hpp"
 #include "Messages.hpp"
+#include <iostream>
 
 static const std::string DEMO_CAR_IP = "127.0.0.1";
 static const std::string DEMO_NTP_IP = "127.0.0.1";
