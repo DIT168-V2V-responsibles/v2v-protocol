@@ -88,8 +88,8 @@ V2VService::V2VService() {
 
                        // After receiving a FollowRequest, check first if there is currently no car already following.
                        if (followerIp.empty()) {
-                           int len = sender.find(':');          // If no, add the requester to known follower slot and
-                           followerIp = sender.substr(0, len);  // establish a sending channel.
+                           unsigned long len = sender.find(':');    // If no, add the requester to known follower slot
+                           followerIp = sender.substr(0, len);      // and establish a sending channel.
                            toFollower = std::make_shared<cluon::UDPSender>(followerIp, DEFAULT_PORT);
                            followResponse();
                        }
@@ -111,11 +111,12 @@ V2VService::V2VService() {
                                  << "' from '" << sender << "'!" << std::endl;
 
                        // Clear either follower or leader slot, depending on current role.
-                       if (sender == followerIp) {
+                       unsigned long len = sender.find(':');
+                       if (sender.substr(0, len) == followerIp) {
                            followerIp = "";
                            toFollower.reset();
                        }
-                       else if (sender == leaderIp) {
+                       else if (sender.substr(0, len) == leaderIp) {
                            leaderIp = "";
                            toLeader.reset();
                        }
@@ -190,8 +191,16 @@ void V2VService::followResponse() {
  */
 void V2VService::stopFollow(std::string vehicleIp) {
     StopFollow stopFollow;
-    if (vehicleIp == leaderIp) toLeader->send(encode(stopFollow));
-    if (vehicleIp == followerIp) toFollower->send(encode(stopFollow));
+    if (vehicleIp == leaderIp) {
+        toLeader->send(encode(stopFollow));
+        leaderIp = "";
+        toLeader.reset();
+    }
+    if (vehicleIp == followerIp) {
+        toFollower->send(encode(stopFollow));
+        followerIp = "";
+        toFollower.reset();
+    }
 }
 
 /**
