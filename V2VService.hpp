@@ -9,10 +9,19 @@
 #include "cluon/UDPReceiver.hpp"
 #include "cluon/Envelope.hpp"
 #include "Messages.hpp"
+#include <iostream>
+
+/** ADD YOUR CAR_IP AND GROUP_ID HERE:  *****************/
+
+static const std::string YOUR_CAR_IP    = "10.211.55.6";
+static const std::string YOUR_GROUP_ID  = "5";
+
+/********************************************************/
+/** DON'T CHANGE STUFF BELOW THIS LINE. *****************/
+/********************************************************/
 
 static const std::string DEMO_CAR_IP = "127.0.0.1";
 static const std::string DEMO_NTP_IP = "127.0.0.1";
-static const std::string DEMO_GROUP_ID = "42";
 
 static const int BROADCAST_CHANNEL = 200;
 static const int DEFAULT_PORT = 50001;
@@ -26,6 +35,8 @@ static const int FOLLOWER_STATUS = 3001;
 
 class V2VService {
 public:
+    std::map <std::string, std::string> presentCars;
+
     V2VService();
 
     void announcePresence();
