@@ -70,10 +70,10 @@ This message is sent by a car to indicate that following must come to an end. Bo
 This message includes information about a leading vehicle and contains information relevant for a following car to be able to follow it. The LeaderStatus is sent in regular intervals of 125ms. Also, a new status update will be sent if a sudden change in speed (>0.1 pedal position) or steering angle (>5°) occurs. This message does not expect a response.
 
 ***Fields***
-* unit32_t timestamp       - The time stamp (the time that the message has been sent) of the leading vehicle.
+* uint32_t timestamp       - The time stamp (the time that the message has been sent) of the leading vehicle.
 * uint8_t  speed           - Current speed of the leading vehicle.
 * uint8_t steeringAngle    - Current steering angle of the leading vehicle.
-* unit8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
+* uint8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
 
 #### 4.3 Follower Specific Requests
 
@@ -81,8 +81,8 @@ This message includes information about a leading vehicle and contains informati
 This message includes information about a following vehicle and contains information relevant for a leading car. The FollowerStatus is sent in regular intervals of 125ms. Also, a new status update will be sent if a sudden change in speed (>0.1 pedal position) or steering angle (>5°) occurs. This message does not expect a response.
 
 ***Fields***
-* unit32_t timestamp       - A time stamp (the time that the message has been sent) for the following vehicle.
+* uint32_t timestamp       - A time stamp (the time that the message has been sent) for the following vehicle.
 * uint8_t speed            - Current speed of the following vehicle.
 * uint8_t steeringAngle    - Current steering angle of the following vehicle.
 * uint8_t distanceFront    - Current distance to the vehicle being followed (according to ultrasonic sensor).
-* unit8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
+* uint8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
