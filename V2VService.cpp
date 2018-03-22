@@ -5,6 +5,7 @@ int main() {
 
     while (1) {
         int choice;
+        std::string groupId;
         std::cout << "Which message would you like to send?" << std::endl;
         std::cout << "(1) AnnouncePresence" << std::endl;
         std::cout << "(2) FollowRequest" << std::endl;
@@ -18,9 +19,23 @@ int main() {
 
         switch (choice) {
             case 1: v2vService->announcePresence(); break;
-            case 2: v2vService->followRequest(DEMO_CAR_IP); break;
+            case 2: {
+                std::cout << "Which group do you want to follow?" << std::endl;
+                std::cin >> groupId;
+                if (v2vService->presentCars.find(groupId) != v2vService->presentCars.end())
+                    v2vService->followRequest(v2vService->presentCars[groupId]);
+                else std::cout << "Sorry, unable to locate that groups vehicle!" << std::endl;
+                break;
+            }
             case 3: v2vService->followResponse(); break;
-            case 4: v2vService->stopFollow(DEMO_CAR_IP); break;
+            case 4: {
+                std::cout << "Which group do you want to stop follow?" << std::endl;
+                std::cin >> groupId;
+                if (v2vService->presentCars.find(groupId) != v2vService->presentCars.end())
+                    v2vService->stopFollow(v2vService->presentCars[groupId]);
+                else std::cout << "Sorry, unable to locate that groups vehicle!" << std::endl;
+                break;
+            }
             case 5: v2vService->leaderStatus(50, 0, 100); break;
             case 6: v2vService->followerStatus(50, 0, 10, 100); break;
             default: exit(0);
@@ -47,7 +62,7 @@ V2VService::V2VService() {
                                 << ap.vehicleIp() << ":" << ap.activePort() << "', GroupID '"
                                 << ap.groupId() << "'!" << std::endl;
 
-                      /* TODO: monitor these IPs so you know which ones to choose from */
+                      presentCars[ap.groupId()] = ap.vehicleIp();
 
                       break;
                   }
@@ -73,8 +88,8 @@ V2VService::V2VService() {
 
                        // After receiving a FollowRequest, check first if there is currently no car already following.
                        if (followerIp.empty()) {
-                           followerIp = sender; // If no, add the requester to known follower slot and establish a
-                                                // sending channel.
+                           unsigned long len = sender.find(':');    // If no, add the requester to known follower slot
+                           followerIp = sender.substr(0, len);      // and establish a sending channel.
                            toFollower = std::make_shared<cluon::UDPSender>(followerIp, DEFAULT_PORT);
                            followResponse();
                        }
@@ -96,11 +111,12 @@ V2VService::V2VService() {
                                  << "' from '" << sender << "'!" << std::endl;
 
                        // Clear either follower or leader slot, depending on current role.
-                       if (sender == followerIp) {
+                       unsigned long len = sender.find(':');
+                       if (sender.substr(0, len) == followerIp) {
                            followerIp = "";
                            toFollower.reset();
                        }
-                       else if (sender == leaderIp) {
+                       else if (sender.substr(0, len) == leaderIp) {
                            leaderIp = "";
                            toLeader.reset();
                        }
@@ -136,9 +152,9 @@ V2VService::V2VService() {
 void V2VService::announcePresence() {
     if (!followerIp.empty()) return;
     AnnouncePresence announcePresence;
-    announcePresence.vehicleIp(DEMO_CAR_IP);
+    announcePresence.vehicleIp(YOUR_CAR_IP);
     announcePresence.activePort(DEFAULT_PORT);
-    announcePresence.groupId(DEMO_GROUP_ID);
+    announcePresence.groupId(YOUR_GROUP_ID);
     broadcast->send(announcePresence);
 }
 
@@ -175,8 +191,16 @@ void V2VService::followResponse() {
  */
 void V2VService::stopFollow(std::string vehicleIp) {
     StopFollow stopFollow;
-    if (vehicleIp == leaderIp) toLeader->send(encode(stopFollow));
-    else if (vehicleIp == followerIp) toFollower->send(encode(stopFollow));
+    if (vehicleIp == leaderIp) {
+        toLeader->send(encode(stopFollow));
+        leaderIp = "";
+        toLeader.reset();
+    }
+    if (vehicleIp == followerIp) {
+        toFollower->send(encode(stopFollow));
+        followerIp = "";
+        toFollower.reset();
+    }
 }
 
 /**
