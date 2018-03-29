@@ -13,15 +13,12 @@
 
 /** ADD YOUR CAR_IP AND GROUP_ID HERE:  *****************/
 
-static const std::string YOUR_CAR_IP    = "172.20.10.6 ";
+static const std::string YOUR_CAR_IP    = "172.20.10.6";
 static const std::string YOUR_GROUP_ID  = "2";
 
 /********************************************************/
 /** DON'T CHANGE STUFF BELOW THIS LINE. *****************/
 /********************************************************/
-
-static const std::string DEMO_CAR_IP = "127.0.0.1";
-static const std::string DEMO_NTP_IP = "127.0.0.1";
 
 static const int BROADCAST_CHANNEL = 200;
 static const int DEFAULT_PORT = 50001;
