@@ -1,3 +1,24 @@
+message Message [id = 9001] {
+	string sMessage [id = 1];
+}
+
+message opendlv.proxy.GroundSteeringReading [id = 1045] {
+  float steeringAngle [id = 1];
+}
+
+message opendlv.proxy.PedalPositionReading [id = 1041] {
+  float percent [id = 1];
+}
+
+message CarControllerPedal [id = 9002] {
+	float pedal [id = 1];
+}
+
+message CarControllerSteering [id = 9003] {
+	float steering [id = 1];
+}
+
+
 message AnnouncePresence [id = 1001] {
   string vehicleIp [id = 1];
   uint16 activePort [id = 2];
@@ -8,6 +29,7 @@ message FollowRequest [id = 1002] {
 }
 
 message FollowResponse [id = 1003] {
+  string ntpServerIp [id = 1];
 }
 
 message StopFollow [id = 1004] {

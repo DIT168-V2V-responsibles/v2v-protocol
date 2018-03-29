@@ -98,11 +98,7 @@ V2VService::V2VService() {
                    case FOLLOW_RESPONSE: {
                        FollowResponse followResponse = decode<FollowResponse>(msg.second);
                        std::cout << "received '" << followResponse.LongName()
-                                 << "' with NTPServerIP '" << followResponse.ntpServerIp()
                                  << "' from '" << sender << "'!" << std::endl;
-
-                       /* TODO: implement NTP synchronisation */
-
                        break;
                    }
                    case STOP_FOLLOW: {
@@ -179,7 +175,6 @@ void V2VService::followRequest(std::string vehicleIp) {
 void V2VService::followResponse() {
     if (followerIp.empty()) return;
     FollowResponse followResponse;
-    followResponse.ntpServerIp(DEMO_NTP_IP);
     toFollower->send(encode(followResponse));
 }
 
