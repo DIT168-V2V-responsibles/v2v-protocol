@@ -45,21 +45,17 @@ This section describes the protocol requests. Fields of requests and their types
 #### 4.1 Common Requests
 
 ##### Announce Presence
-This message is intended for the cars not leading other cars yet, to inform their presence on the network. The Announce Presence holds the IP of the car as a unique identification among all the cars and also the port that followers can connect to, if they choose to follow the car sending Announce Presence message. Moreover, the car also includes the id of the group in the message in order to inform the cars about the group number.
+This message is intended for the cars not leading other cars yet, to inform their presence on the network. The Announce Presence holds the IP of the car as a unique identification among all the cars that followers can connect to, if they choose to follow the car sending Announce Presence message. Moreover, the car also includes the id of the group in the message in order to inform the cars about the group number.
 
 ***Fields***
 * string   vehicleIp  - IP of the car that sends the announce presence, used as a unique idetifier.
-* uint16_t activePort - A unique port that allows followers to connect to the car sending the announcement.
 * string   groupId    - The project group number of the group that has the car.
 
 ##### Follow Request  
 This message is sent to the car that is about to be followed by another car that wants to initiate following. This message requires a response i.e. Follow Response. 
 
 ##### Follow Response
-This message is sent in response to a Follow Request. The message returns a string containing the IP of the NTP server that the following car is synced to. In order the acquire a better time synchronization between the cars, each vehicle should run its own NTP server.
-
-***Fields***
-* string ntpServerIp - A string containing the IP of the NTP server.
+This message is sent in response to a Follow Request. The message is used in combination with the Follow Request message to establish direct Car to Car communication. 
 
 ##### Stop Follow Request
 This message is sent by a car to indicate that following must come to an end. Both the leading and the following vehicles are able to send this request. This message does not expect a response.

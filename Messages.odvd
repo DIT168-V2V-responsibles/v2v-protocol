@@ -1,6 +1,5 @@
 message AnnouncePresence [id = 1001] {
   string vehicleIp [id = 1];
-  uint16 activePort [id = 2];
   string groupId [id = 3];
 }
 
@@ -8,7 +7,6 @@ message FollowRequest [id = 1002] {
 }
 
 message FollowResponse [id = 1003] {
-  string ntpServerIp [id = 1];
 }
 
 message StopFollow [id = 1004] {

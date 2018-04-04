@@ -59,7 +59,7 @@ V2VService::V2VService() {
                   case ANNOUNCE_PRESENCE: {
                       AnnouncePresence ap = cluon::extractMessage<AnnouncePresence>(std::move(envelope));
                       std::cout << "received 'AnnouncePresence' from '"
-                                << ap.vehicleIp() << ":" << ap.activePort() << "', GroupID '"
+                                << ap.vehicleIp() << "', GroupID '"
                                 << ap.groupId() << "'!" << std::endl;
 
                       presentCars[ap.groupId()] = ap.vehicleIp();
@@ -98,11 +98,7 @@ V2VService::V2VService() {
                    case FOLLOW_RESPONSE: {
                        FollowResponse followResponse = decode<FollowResponse>(msg.second);
                        std::cout << "received '" << followResponse.LongName()
-                                 << "' with NTPServerIP '" << followResponse.ntpServerIp()
                                  << "' from '" << sender << "'!" << std::endl;
-
-                       /* TODO: implement NTP synchronisation */
-
                        break;
                    }
                    case STOP_FOLLOW: {
@@ -153,7 +149,6 @@ void V2VService::announcePresence() {
     if (!followerIp.empty()) return;
     AnnouncePresence announcePresence;
     announcePresence.vehicleIp(YOUR_CAR_IP);
-    announcePresence.activePort(DEFAULT_PORT);
     announcePresence.groupId(YOUR_GROUP_ID);
     broadcast->send(announcePresence);
 }
@@ -179,7 +174,6 @@ void V2VService::followRequest(std::string vehicleIp) {
 void V2VService::followResponse() {
     if (followerIp.empty()) return;
     FollowResponse followResponse;
-    followResponse.ntpServerIp(DEMO_NTP_IP);
     toFollower->send(encode(followResponse));
 }
 
