@@ -37,7 +37,7 @@ int main() {
                 break;
             }
             case 5: v2vService->leaderStatus(50, 0, 100); break;
-            case 6: v2vService->followerStatus(50, 0, 10, 100); break;
+            case 6: v2vService->followerStatus(); break;
             default: exit(0);
         }
     }
@@ -205,15 +205,9 @@ void V2VService::stopFollow(std::string vehicleIp) {
  * @param distanceFront - distance to nearest object in front of the car sending the status message
  * @param distanceTraveled - distance traveled since last reading
  */
-void V2VService::followerStatus(uint8_t speed, uint8_t steeringAngle, uint8_t distanceFront,
-                                uint8_t distanceTraveled) {
+void V2VService::followerStatus() {
     if (leaderIp.empty()) return;
     FollowerStatus followerStatus;
-    followerStatus.timestamp(getTime());
-    followerStatus.speed(speed);
-    followerStatus.steeringAngle(steeringAngle);
-    followerStatus.distanceFront(distanceFront);
-    followerStatus.distanceTraveled(distanceTraveled);
     toLeader->send(encode(followerStatus));
 }
 
@@ -224,7 +218,7 @@ void V2VService::followerStatus(uint8_t speed, uint8_t steeringAngle, uint8_t di
  * @param steeringAngle - current steering angle
  * @param distanceTraveled - distance traveled since last reading
  */
-void V2VService::leaderStatus(uint8_t speed, uint8_t steeringAngle, uint8_t distanceTraveled) {
+void V2VService::leaderStatus(float speed, float steeringAngle, uint8_t distanceTraveled) {
     if (followerIp.empty()) return;
     LeaderStatus leaderStatus;
     leaderStatus.timestamp(getTime());

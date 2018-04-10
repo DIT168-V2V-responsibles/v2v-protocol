@@ -20,7 +20,7 @@ static const std::string YOUR_GROUP_ID  = "2";
 /** DON'T CHANGE STUFF BELOW THIS LINE. *****************/
 /********************************************************/
 
-static const int BROADCAST_CHANNEL = 200;
+static const int BROADCAST_CHANNEL = 250;
 static const int DEFAULT_PORT = 50001;
 
 static const int ANNOUNCE_PRESENCE = 1001;
@@ -40,8 +40,8 @@ public:
     void followRequest(std::string vehicleIp);
     void followResponse();
     void stopFollow(std::string vehicleIp);
-    void leaderStatus(uint8_t speed, uint8_t steeringAngle, uint8_t distanceTraveled);
-    void followerStatus(uint8_t speed, uint8_t steeringAngle, uint8_t distanceFront, uint8_t distanceTraveled);
+    void leaderStatus(float speed, float steeringAngle, uint8_t distanceTraveled);
+    void followerStatus();
 
 private:
     std::string leaderIp;

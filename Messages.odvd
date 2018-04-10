@@ -14,15 +14,10 @@ message StopFollow [id = 1004] {
 
 message LeaderStatus [id = 2001] {
   uint32 timestamp [id = 1];
-  uint8 speed [id = 2];
-  uint8 steeringAngle [id = 3];
+  float speed [id = 2];
+  float steeringAngle [id = 3];
   uint8 distanceTraveled [id = 4];
 }
 
 message FollowerStatus [id = 3001] {
-  uint32 timestamp [id = 1];
-  uint8 speed [id = 2];
-  uint8 steeringAngle [id = 3];
-  uint8 distanceFront [id = 4];
-  uint8 distanceTraveled [id = 5];
 }
