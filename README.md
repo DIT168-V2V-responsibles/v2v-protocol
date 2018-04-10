@@ -8,6 +8,7 @@ This repo contains a V2V communication protocol between autonomous RCs with a fo
 2. ##### [Get started](https://github.com/DIT168-V2V-responsibles/v2v-protocol#2-get-started)
 3. ##### [License](https://github.com/DIT168-V2V-responsibles/v2v-protocol#3-license)
 4. ##### [Requests](https://github.com/DIT168-V2V-responsibles/v2v-protocol#4-protocol-requests)
+5. ##### [CID ranges](https://github.com/DIT168-V2V-responsibles/v2v-protocol#5-cid-ranges)
 
 ### 1. Installation
 To install libcluon please refer to the installation guide [Libcluon](https://github.com/chrberger/libcluon).
@@ -63,22 +64,37 @@ This message is sent by a car to indicate that following must come to an end. Bo
 #### 4.2 Leader Specific Requests
 
 ##### Status Update
-This message includes information about a leading vehicle and contains information relevant for a following car to be able to follow it. The LeaderStatus is sent in regular intervals of 125ms. Also, a new status update will be sent if a sudden change in speed (>0.1 pedal position) or steering angle (>5°) occurs. This message does not expect a response.
+This message includes information about a leading vehicle and contains information relevant for a following car to be able to follow it. The LeaderStatus is sent in regular intervals of 125ms and does not expect a response.
 
 ***Fields***
 * uint32_t timestamp       - The time stamp (the time that the message has been sent) of the leading vehicle.
-* uint8_t  speed           - Current speed of the leading vehicle.
-* uint8_t steeringAngle    - Current steering angle of the leading vehicle.
+* float  speed           - Current speed of the leading vehicle.
+* float steeringAngle    - Current steering angle of the leading vehicle.
 * uint8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
 
 #### 4.3 Follower Specific Requests
 
 ##### Status Update
-This message includes information about a following vehicle and contains information relevant for a leading car. The FollowerStatus is sent in regular intervals of 125ms. Also, a new status update will be sent if a sudden change in speed (>0.1 pedal position) or steering angle (>5°) occurs. This message does not expect a response.
+This message lets the leading car know that this follower is still following. The FollowerStatus is sent in regular intervals of 500ms and does not expect a response.
 
-***Fields***
-* uint32_t timestamp       - A time stamp (the time that the message has been sent) for the following vehicle.
-* uint8_t speed            - Current speed of the following vehicle.
-* uint8_t steeringAngle    - Current steering angle of the following vehicle.
-* uint8_t distanceFront    - Current distance to the vehicle being followed (according to ultrasonic sensor).
-* uint8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
+### 5. CID ranges
+
+For the purposes of the DIT168 course, the OD4 session [CIDs](https://chrberger.github.io/libcluon/classcluon_1_1OD4Session.html#ad9d26426cf2714e105c27a23ce4a0f7a) that the project groups are going to use are listed below.
+
+| Group | CID     |
+| ----- | :-----: |
+|   1   | 120-129 |
+|   2   | 130-139 |
+|   3   | 140-149 |
+|   4   | 150-159 |
+|   5   | 160-169 |
+|   6   | 170-179 |
+|   7   | 180-189 |
+|   8   | 190-199 |
+|   9   | 200-209 |
+|   10  | 210-219 |
+|   11  | 220-229 |
+|   12  | 230-239 |
+|   13  | 240-249 |
+
+The Announce Presence messages between the groups will be broadcast to an OD4 session with CID **250**.
