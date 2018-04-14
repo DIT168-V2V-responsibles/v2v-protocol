@@ -37,10 +37,10 @@ make
 ```
 
 ### 3. License
-The protocol is licenced under GNU Lesser General Public License version 3.0. This is due to the incorporation of "libcluon" library as part of the project. Libcluon offers their software under LGPLv 3.0 licence and due to the copyleft nature, anyone who distribute its code or derivative works, are required to make the source available under the same terms. 
+The protocol is licenced under GNU Lesser General Public License version 3.0. This is due to the incorporation of "libcluon" library as part of the project. Libcluon offers their software under LGPLv 3.0 licence and due to the copyleft nature, anyone who distribute its code or derivative works, are required to make the source available under the same terms.
 Libcluon library can be found [here](https://github.com/chrberger/libcluon).
 
-### 4. Protocol Requests 
+### 4. Protocol Requests
 This section describes the protocol requests. Fields of requests and their types are denoted: Type field name.
 
 #### 4.1 Common Requests
@@ -53,10 +53,10 @@ This message is intended for the cars not leading other cars yet, to inform thei
 * string   groupId    - The project group number of the group that has the car.
 
 ##### Follow Request  
-This message is sent to the car that is about to be followed by another car that wants to initiate following. This message requires a response i.e. Follow Response. 
+This message is sent to the car that is about to be followed by another car that wants to initiate following. This message requires a response i.e. Follow Response.
 
 ##### Follow Response
-This message is sent in response to a Follow Request. The message is used in combination with the Follow Request message to establish direct Car to Car communication. 
+This message is sent in response to a Follow Request. The message is used in combination with the Follow Request message to establish direct Car to Car communication.
 
 ##### Stop Follow Request
 This message is sent by a car to indicate that following must come to an end. Both the leading and the following vehicles are able to send this request. This message does not expect a response.
@@ -67,10 +67,10 @@ This message is sent by a car to indicate that following must come to an end. Bo
 This message includes information about a leading vehicle and contains information relevant for a following car to be able to follow it. The LeaderStatus is sent in regular intervals of 125ms and does not expect a response.
 
 ***Fields***
-* uint32_t timestamp       - The time stamp (the time that the message has been sent) of the leading vehicle.
-* float  speed           - Current speed of the leading vehicle.
-* float steeringAngle    - Current steering angle of the leading vehicle.
-* uint8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
+* uint32_t timestamp - The time stamp (the time that the message has been sent) of the leading vehicle, represented as UNIX Epoch time.
+* float speed - Current speed of the leading vehicle, the leading car should put its current Pedal Position Reading into this message field.
+* float steeringAngle - Current steering angle of the leading vehicle, the leading car should put its current Ground Steering Reading into this message field.
+* uint8_t distanceTraveled - The distance travelled since the last status update (according the odometer), represented in centimeters.
 
 #### 4.3 Follower Specific Requests
 
