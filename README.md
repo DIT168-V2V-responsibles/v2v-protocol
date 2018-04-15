@@ -67,7 +67,7 @@ This message is sent by a car to indicate that following must come to an end. Bo
 This message includes information about a leading vehicle and contains information relevant for a following car to be able to follow it. The LeaderStatus is sent in regular intervals of 125ms and does not expect a response.
 
 ***Fields***
-* uint32_t timestamp - The time stamp (the time that the message has been sent) of the leading vehicle, represented as UNIX Epoch time.
+* uint32_t timestamp - The time stamp (the time that the message has been sent) of the leading vehicle, represented as UNIX Epoch time in seconds.
 * float speed - Current speed of the leading vehicle, the leading car should put its current Pedal Position Reading into this message field.
 * float steeringAngle - Current steering angle of the leading vehicle, the leading car should put its current Ground Steering Reading into this message field.
 * uint8_t distanceTraveled - The distance travelled since the last status update (according the odometer), represented in centimeters.
