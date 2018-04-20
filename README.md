@@ -70,7 +70,7 @@ This message includes information about a leading vehicle and contains informati
 * uint32_t timestamp       - The time stamp (the time that the message has been sent) of the leading vehicle.
 * float  speed           - Current speed of the leading vehicle.
 * float steeringAngle    - Current steering angle of the leading vehicle.
-* uint8_t distanceTraveled - The distance travelled since the last status update (according the odometer).
+* uint8_t distanceTraveled - The distance travelled since the last status update.
 
 #### 4.3 Follower Specific Requests
 
