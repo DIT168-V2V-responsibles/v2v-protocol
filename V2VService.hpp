@@ -9,12 +9,18 @@
 #include "cluon/UDPReceiver.hpp"
 #include "cluon/Envelope.hpp"
 #include "Messages.hpp"
+#include <iostream>
 
-static const std::string DEMO_CAR_IP = "127.0.0.1";
-static const std::string DEMO_NTP_IP = "127.0.0.1";
-static const std::string DEMO_GROUP_ID = "42";
+/** ADD YOUR CAR_IP AND GROUP_ID HERE:  *****************/
 
-static const int BROADCAST_CHANNEL = 200;
+static const std::string YOUR_CAR_IP    = "172.20.10.6";
+static const std::string YOUR_GROUP_ID  = "2";
+
+/********************************************************/
+/** DON'T CHANGE STUFF BELOW THIS LINE. *****************/
+/********************************************************/
+
+static const int BROADCAST_CHANNEL = 250;
 static const int DEFAULT_PORT = 50001;
 
 static const int ANNOUNCE_PRESENCE = 1001;
@@ -26,14 +32,16 @@ static const int FOLLOWER_STATUS = 3001;
 
 class V2VService {
 public:
+    std::map <std::string, std::string> presentCars;
+
     V2VService();
 
     void announcePresence();
     void followRequest(std::string vehicleIp);
     void followResponse();
     void stopFollow(std::string vehicleIp);
-    void leaderStatus(uint8_t speed, uint8_t steeringAngle, uint8_t distanceTraveled);
-    void followerStatus(uint8_t speed, uint8_t steeringAngle, uint8_t distanceFront, uint8_t distanceTraveled);
+    void leaderStatus(float speed, float steeringAngle, uint8_t distanceTraveled);
+    void followerStatus();
 
 private:
     std::string leaderIp;
