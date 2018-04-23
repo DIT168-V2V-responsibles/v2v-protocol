@@ -15,7 +15,7 @@ message StopFollow [id = 1004] {
 }
 
 message LeaderStatus [id = 2001] {
-  uint32 timestamp [id = 1];
+  uint64 timestamp [id = 1];
   uint8 speed [id = 2];
   uint8 steeringAngle [id = 3];
   uint8 distanceTraveled [id = 4];
