@@ -9,7 +9,7 @@ This repo contains a V2V communication protocol between autonomous RCs with a fo
 3. ##### [License](https://github.com/DIT168-V2V-responsibles/v2v-protocol#3-license)
 4. ##### [Requests](https://github.com/DIT168-V2V-responsibles/v2v-protocol#4-protocol-requests)
 5. ##### [CID ranges](https://github.com/DIT168-V2V-responsibles/v2v-protocol#5-cid-ranges)
-5. ##### [NTP](https://github.com/DIT168-V2V-responsibles/v2v-protocol#6-NTP)
+6. ##### [NTP](https://github.com/DIT168-V2V-responsibles/v2v-protocol#6-ntp)
 
 ### 1. Installation
 To install libcluon please refer to the installation guide [Libcluon](https://github.com/chrberger/libcluon).
